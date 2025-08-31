@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lost & Found Portal - PCTE</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Glassy Background -->
+  <div class="background"></div>
+
+  <!-- Header -->
+  <header>
+    <img src="cropped_circle_image.png" alt="College Logo" class="logo">
+    <h1>Lost & Found Portal</h1>
+    <h2 class="college-name">PCTE College of Institutes, Ludhiana (Jhande)</h2>
+  </header>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="#report">Report Item</a>
+    <a href="#items">Browse Items</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <!-- Report Form -->
+  <section id="report" class="glass">
+    <h2>Report Lost / Found Item</h2>
+    <form id="reportForm">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="text" id="course" placeholder="Course / Dept" required>
+      <input type="text" id="contact" placeholder="Phone / Email" required>
+      <select id="category" required>
+        <option value="">Select Category</option>
+        <option value="ID Card">ID Card</option>
+        <option value="Books">Books</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Wallet">Wallet</option>
+        <option value="Keys">Keys</option>
+        <option value="Others">Others</option>
+      </select>
+      <textarea id="description" placeholder="Describe the item..." required></textarea>
+      <input type="file" id="image" accept="image/*">
+      <button type="submit">Submit Report</button>
+      <button type="button" class="notifyBtn" onclick="notifyMam()">📩 Notify Ms. Pratibha</button>
+    </form>
+  </section>
+
+  <!-- Search & Items -->
+  <section id="items" class="glass">
+    <h2>Browse Lost & Found Items</h2>
+    <input type="text" id="search" placeholder="🔍 Search items...">
+    <div id="itemsList"></div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="glass">
+    <h2>Contact Assistant Professor</h2>
+    <p>If you need assistance, reach out directly to:</p>
+    <p><strong>Ms. Pratibha (Assistant Professor)</strong></p>
+    <div class="card-actions">
+      <a href="https://wa.me/917005799506?text=Hello Ms. Pratibha, I want to report a Lost/Found item." target="_blank" class="whatsapp">💬 WhatsApp Ms. Pratibha</a>
+      <a href="mailto:pratibha@pcte.edu.in?subject=Lost+Found+Report" class="email">📧 Email Ms. Pratibha</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="glass">
+    <p>© 2025 PCTE College of Institutes, Ludhiana (Jhande) | Developed for Students</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
