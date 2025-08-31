@@ -5,10 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lost & Found Portal - PCTE</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Professional Watermark */
+    .watermark {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      font-size: 0.85rem;
+      opacity: 0.5;
+      pointer-events: auto;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      z-index: 1000;
+      background-color: rgba(255, 255, 255, 0.3);
+      padding: 4px 8px;
+      border-radius: 5px;
+      transition: opacity 0.3s;
+    }
+    .watermark:hover {
+      opacity: 1;
+      background-color: rgba(255, 255, 255, 0.6);
+    }
+  </style>
 </head>
 <body>
   <!-- Glassy Background -->
   <div class="background"></div>
+<div class="watermark">
+   Zahik Abas Dar – CSE Student <br>
+  <a href="https://github.com/ZahikAbas" target="_blank">GitHub Profile</a>
+</div>
 
   <!-- Header -->
   <header>
@@ -27,11 +54,11 @@
   <!-- Report Form -->
   <section id="report" class="glass">
     <h2>Report Lost / Found Item</h2>
-    <form id="reportForm">
-      <input type="text" id="name" placeholder="Your Name" required>
-      <input type="text" id="course" placeholder="Course / Dept" required>
-      <input type="text" id="contact" placeholder="Phone / Email" required>
-      <select id="category" required>
+    <form id="reportForm" enctype="multipart/form-data">
+      <input type="text" name="name" id="name" placeholder="Your Name" required>
+      <input type="text" name="course" id="course" placeholder="Course / Dept" required>
+      <input type="text" name="contact" id="contact" placeholder="Phone / Email" required>
+      <select name="category" id="category" required>
         <option value="">Select Category</option>
         <option value="ID Card">ID Card</option>
         <option value="Books">Books</option>
@@ -40,8 +67,13 @@
         <option value="Keys">Keys</option>
         <option value="Others">Others</option>
       </select>
-      <textarea id="description" placeholder="Describe the item..." required></textarea>
-      <input type="file" id="image" accept="image/*">
+      <textarea name="description" id="description" placeholder="Describe the item..." required></textarea>
+      <select name="status" id="status" required>
+        <option value="">Select Status</option>
+        <option value="Lost">Lost</option>
+        <option value="Found">Found</option>
+      </select>
+      <input type="file" name="image" id="image" accept="image/*">
       <button type="submit">Submit Report</button>
       <button type="button" class="notifyBtn" onclick="notifyMam()">📩 Notify Ms. Pratibha</button>
     </form>
@@ -70,6 +102,7 @@
     <p>© 2025 PCTE College of Institutes, Ludhiana (Jhande) | Developed for Students</p>
   </footer>
 
+  <!-- JS -->
   <script src="script.js"></script>
 </body>
 </html>

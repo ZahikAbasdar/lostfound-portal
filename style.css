@@ -26,7 +26,7 @@ body { color: #fff; }
 
 /* Glass sections (forms, cards, etc.) */
 .glass {
-  background: rgba(255, 255, 255, 0.15); /* semi-transparent white */
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 15px;
   padding: 2rem;
   margin: 1rem auto;
@@ -35,13 +35,6 @@ body { color: #fff; }
   backdrop-filter: blur(12px) saturate(150%);
   box-shadow: 0 8px 25px rgba(0,0,0,0.2);
   border: 1px solid rgba(255,255,255,0.25);
-}
-
-/* Gradient animation (if needed) */
-@keyframes gradientMove {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
 }
 
 /* Header */
@@ -103,22 +96,10 @@ button:hover { background: #ffc107; }
   transform: scale(1.05);
 }
 
-.item-card h3 {
-  margin: 0.5rem 0;
-  font-size: 1.2rem;
-  color: #fff;
-}
+.item-card h3 { margin: 0.5rem 0; font-size: 1.2rem; color: #fff; }
+.item-card p { font-size: 0.95rem; color: #f0f0f0; margin: 0.25rem 0; }
 
-.item-card p {
-  font-size: 0.95rem;
-  color: #f0f0f0;
-  margin: 0.25rem 0;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
 /* Card Actions */
 .card-actions { display: flex; justify-content: center; gap: 1rem; margin-top: 0.5rem; }
@@ -130,7 +111,6 @@ button:hover { background: #ffc107; }
   transform: translateY(-2px) scale(1.05);
   box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
-
 .whatsapp { background: #25d366; color: white; }
 .whatsapp:hover { background: #1ebe57; }
 .email { background: #4285F4; color: white; }
@@ -138,6 +118,24 @@ button:hover { background: #ffc107; }
 
 /* Footer */
 footer { text-align: center; padding: 1rem; font-size: 0.9rem; opacity: 0.8; }
+
+/* Professional Watermark */
+.watermark {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.4);
+  z-index: 1000;
+  text-align: right;
+  line-height: 1.2;
+}
+.watermark a {
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  font-weight: bold;
+}
+.watermark a:hover { color: #ffce54; }
 
 /* Responsive */
 @media(max-width: 600px) {

@@ -19,7 +19,7 @@ app.use("/uploads", express.static(uploadDir));
 app.use(express.static(path.join(__dirname)));
 
 // Database setup
-const db = new sqlite3.Database("./database.db", err => {
+const db = new sqlite3.Database("./database.db", (err) => {
   if (err) console.error("DB Error:", err.message);
   else console.log("✅ Connected to SQLite database.");
 });
@@ -37,7 +37,9 @@ db.run(`
     image TEXT,
     date TEXT
   )
-`);
+`, (err) => {
+  if (err) console.error("Table creation error:", err.message);
+});
 
 // Multer storage
 const storage = multer.diskStorage({
@@ -50,13 +52,25 @@ const upload = multer({ storage });
 app.get("/api/items", (req, res) => {
   db.all("SELECT * FROM items ORDER BY id DESC", [], (err, rows) => {
     if (err) return res.status(500).json({ error: err.message });
-    res.json(rows);
+
+    // Make image URLs absolute for frontend
+    const items = rows.map(row => ({
+      ...row,
+      image: row.image ? `${req.protocol}://${req.get('host')}${row.image}` : null
+    }));
+
+    res.json(items);
   });
 });
 
 // POST new item
 app.post("/api/items", upload.single("image"), (req, res) => {
   const { name, course, contact, category, description, status } = req.body;
+
+  if (!name || !course || !contact || !category || !description) {
+    return res.status(400).json({ error: "All fields except image are required." });
+  }
+
   const itemStatus = status || "Lost";
   const image = req.file ? `/uploads/${req.file.filename}` : null;
   const date = new Date().toLocaleDateString();
@@ -67,7 +81,18 @@ app.post("/api/items", upload.single("image"), (req, res) => {
     [name, course, contact, category, description, itemStatus, image, date],
     function (err) {
       if (err) return res.status(500).json({ error: err.message });
-      res.json({ id: this.lastID, name, course, contact, category, description, status: itemStatus, image, date });
+
+      res.json({
+        id: this.lastID,
+        name,
+        course,
+        contact,
+        category,
+        description,
+        status: itemStatus,
+        image: image ? `${req.protocol}://${req.get('host')}${image}` : null,
+        date
+      });
     }
   );
 });
@@ -77,14 +102,14 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ error: "Something went wrong!" });
-});
-
 // 404 fallback
 app.use((req, res) => res.status(404).send("404 Not Found"));
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error("Unexpected Error:", err);
+  res.status(500).json({ error: "Something went wrong!" });
+});
 
 // Start server
 app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
